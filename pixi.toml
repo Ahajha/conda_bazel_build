@@ -1,6 +1,6 @@
 [workspace]
 authors = ["Alex Trotta <ahajha@gmail.com>"]
-channels = ["conda-forge", "https://conda.modular.com/max"]
+channels = ["conda-forge", "https://conda.modular.com/max-nightly"]
 name = "conda_bazel_build"
 platforms = ["linux-64"]
 version = "0.1.0"
@@ -12,7 +12,7 @@ version = "0.1.0"
 # This is a large dep for some reason, probably need some work upstream.
 # Use a separate install for now.
 # bazel = "==9.0.0"
-# mojo = ">=1.0.0b1,<2"
+mojo-compiler = ">=1.0.0b1,<2"
 clang = ">=22.1.5,<23"
 sysroot_linux-64 = ">=2.28,<3"
 lld = ">=22.1.5,<23" # this is also provided by mojo-compiler

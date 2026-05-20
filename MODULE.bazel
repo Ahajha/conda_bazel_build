@@ -1,5 +1,14 @@
 bazel_dep(name = "rules_cc", version = "0.2.18")
 bazel_dep(name = "bazel_skylib", version = "1.9.0")
+bazel_dep(name = "rules_mojo")
+archive_override(
+    module_name = "rules_mojo",
+    integrity = "sha256-U1nZFqGyqmfDV7ifCB79d1ctwQ6lRY35ecckbpUX/Fc=",
+    strip_prefix = "rules_mojo-be8b3078e2a4fb36356bc2c29e906b0ca253c0f8",
+    urls = [
+        "https://github.com/modular/rules_mojo/archive/be8b3078e2a4fb36356bc2c29e906b0ca253c0f8.tar.gz",
+    ],
+)
 
 new_local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl", "new_local_repository")
 
@@ -9,4 +18,7 @@ new_local_repository(
     path = ".pixi/envs/default",
 )
 
-register_toolchains("@pixi_repo//:linux_x86_64_toolchain")
+register_toolchains(
+    "@pixi_repo//:linux_x86_64_toolchain",
+    "@pixi_repo//:mojo_toolchain",
+)

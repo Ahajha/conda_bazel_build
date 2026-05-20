@@ -1,11 +1,16 @@
 """Defines a repository created by a conda environment"""
 
+load("@bazel_skylib//lib:paths.bzl", "paths")
 load("@bazel_skylib//rules/directory:directory.bzl", "directory")
+load("@rules_cc//cc:defs.bzl", "cc_import")
 load("@rules_cc//cc/toolchains:args.bzl", "cc_args")
 load("@rules_cc//cc/toolchains:tool.bzl", "cc_tool")
 load("@rules_cc//cc/toolchains:tool_map.bzl", "cc_tool_map")
 load("@rules_cc//cc/toolchains:toolchain.bzl", "cc_toolchain")
+load("@rules_mojo//mojo:mojo_import.bzl", "mojo_import")
 # load("@rules_cc//cc/toolchains/args:sysroot.bzl", "_DEFAULT_SYSROOT_ACTIONS")
+
+load("@rules_mojo//mojo:toolchain.bzl", "mojo_toolchain")
 
 _DEFAULT_SYSROOT_ACTIONS = [
     "@rules_cc//cc/toolchains/actions:assembly_actions",
@@ -127,5 +132,58 @@ toolchain(
     name = "linux_x86_64_toolchain",
     toolchain = ":linux_x86_64_clang_toolchain",
     toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+# Copied from
+# https://github.com/modular/rules_mojo/blob/6357c3eb7b60d27c8da55247784aae121213109c/mojo/private/toolchain.BUILD
+_INTERNAL_LIBRARIES = [
+    (
+        paths.split_extension(library)[0],
+        library,
+    )
+    for library in glob(
+        [
+            # Globbed to allow .so or .dylib
+            "lib/libAsyncRTMojoBindings.*",
+            "lib/libAsyncRTRuntimeGlobals.*",
+            "lib/libKGENCompilerRTShared.*",
+            "lib/libMSupportGlobals.*",
+        ],
+        allow_empty = False,
+    ) + glob(
+        ["lib/libNVPTX.so"],  # buildifier: disable=constant-glob
+        allow_empty = True,
+    )
+]
+
+[
+    cc_import(
+        name = name,
+        shared_library = library,
+        visibility = ["//visibility:private"],
+    )
+    for name, library in _INTERNAL_LIBRARIES
+]
+
+mojo_import(
+    name = "std",
+    mojodeps = ["lib/mojo/std.mojoc"],
+)
+
+mojo_toolchain(
+    name = "mojo_toolchain_decl",
+    implicit_deps = [
+        name
+        for name, _ in _INTERNAL_LIBRARIES
+    ] + [":std"],
+    lld = "bin/lld",
+    mojo = "bin/mojo",
+)
+
+toolchain(
+    name = "mojo_toolchain",
+    toolchain = ":mojo_toolchain_decl",
+    toolchain_type = "@rules_mojo//:toolchain_type",
     visibility = ["//visibility:public"],
 )

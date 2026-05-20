@@ -1,6 +1,12 @@
 load("@rules_cc//cc:cc_binary.bzl", "cc_binary")
+load("@rules_mojo//mojo:mojo_binary.bzl", "mojo_binary")
 
 cc_binary(
-    name = "main",
+    name = "cc_main",
     srcs = ["main.c"],
+)
+
+mojo_binary(
+    name = "mojo_main",
+    srcs = ["main.mojo"],
 )
