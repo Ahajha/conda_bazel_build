@@ -1,0 +1,35 @@
+[workspace]
+authors = ["Alex Trotta <ahajha@gmail.com>"]
+channels = ["conda-forge", "https://conda.modular.com/max"]
+name = "conda_bazel_build"
+platforms = ["linux-64"]
+version = "0.1.0"
+#preview = ["pixi-build"]
+
+[tasks]
+
+[dependencies]
+# This is a large dep for some reason, probably need some work upstream.
+# Use a separate install for now.
+# bazel = "==9.0.0"
+# mojo = ">=1.0.0b1,<2"
+clang = ">=22.1.5,<23"
+sysroot_linux-64 = ">=2.28,<3"
+lld = ">=22.1.5,<23" # this is also provided by mojo-compiler
+gcc_impl_linux-64 = ">=15.2.0,<16"
+
+# [package]
+# name = "conda_bazel_build"
+# version = "0.1.0"
+
+# [package.build]
+# backend = { name = "pixi-build-mojo", version = "0.*" }
+#
+# [package.host-dependencies]
+# mojo-compiler = "==1.0.0b1"
+#
+# [package.run-dependencies]
+# mojo-compiler = "==1.0.0b1"
+#
+# [package.build-dependencies]
+# mojo-compiler = "==1.0.0b1"

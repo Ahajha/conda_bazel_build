@@ -1,0 +1,12 @@
+bazel_dep(name = "rules_cc", version = "0.2.18")
+bazel_dep(name = "bazel_skylib", version = "1.9.0")
+
+new_local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl", "new_local_repository")
+
+new_local_repository(
+    name = "pixi_repo",
+    build_file = "pixi.BUILD",
+    path = ".pixi/envs/default",
+)
+
+register_toolchains("@pixi_repo//:linux_x86_64_toolchain")
