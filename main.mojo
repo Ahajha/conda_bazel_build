@@ -1,2 +1,4 @@
+from std.ffi import external_call
+
 def main():
-    print("Hello, World (From Mojo)!")
+    external_call["say_hello", NoneType]()

@@ -67,6 +67,13 @@ cc_tool(
     ],
 )
 
+cc_tool(
+    name = "ar",
+    src = "bin/ar",
+    # Symlinks somewhere else
+    data = glob(["bin/*-ar"]),
+)
+
 cc_args(
     name = "no_canonical_prefixes",
     actions = [
@@ -86,6 +93,7 @@ cc_tool_map(
         "@rules_cc//cc/toolchains/actions:c_compile_actions": ":clang",
         "@rules_cc//cc/toolchains/actions:cpp_compile_actions": ":clang",
         "@rules_cc//cc/toolchains/actions:link_actions": ":clang",
+        "@rules_cc//cc/toolchains/actions:ar_actions": ":ar",
     },
     visibility = ["//visibility:private"],
 )

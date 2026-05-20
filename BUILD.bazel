@@ -1,12 +1,13 @@
-load("@rules_cc//cc:cc_binary.bzl", "cc_binary")
+load("@rules_cc//cc:cc_library.bzl", "cc_library")
 load("@rules_mojo//mojo:mojo_binary.bzl", "mojo_binary")
 
-cc_binary(
-    name = "cc_main",
-    srcs = ["main.c"],
+cc_library(
+    name = "lib",
+    srcs = ["lib.c"],
 )
 
 mojo_binary(
     name = "mojo_main",
     srcs = ["main.mojo"],
+    deps = [":lib"],
 )
