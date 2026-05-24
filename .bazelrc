@@ -1,1 +1,6 @@
+# Make sure we use the cc toolchain we define
 common --repo_env=BAZEL_DO_NOT_DETECT_CPP_TOOLCHAIN=1
+
+# Bazel from conda by default places the repo cache in `.pixi`, this is considered
+# to be in the worktree, so put it somewhere else.
+common --repo_contents_cache=~/.pixi_bazel_repo_cache
