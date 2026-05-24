@@ -8,6 +8,7 @@ version = "0.1.0"
 [tasks]
 main = "bazel run main"
 build = "bazel build ..."
+format = "mojo format ."
 
 [dependencies]
 bazel = "==9.0.0"
