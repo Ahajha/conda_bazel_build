@@ -10,8 +10,6 @@ main = "bazel run main"
 build = "bazel build ..."
 
 [dependencies]
-# This is a large dep for some reason, probably need some work upstream.
-# Use a separate install for now.
 bazel = "==9.0.0"
 openjdk = "<22" # Silence a warning coming from bazel
 mojo-compiler = ">=1.0.0b1,<2"
