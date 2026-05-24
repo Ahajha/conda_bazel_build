@@ -12,7 +12,7 @@ build = "bazel build ..."
 [dependencies]
 bazel = "==9.0.0"
 openjdk = "<22" # Silence a warning coming from bazel
-mojo-compiler = ">=1.0.0b1,<2"
+mojo = ">=1.0.0b1,<2"
 clang = ">=22.1.5,<23"
 sysroot_linux-64 = ">=2.28,<3"
 lld = ">=22.1.5,<23" # this is also provided by mojo-compiler
