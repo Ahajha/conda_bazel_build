@@ -10,15 +10,16 @@ archive_override(
     ],
 )
 
-new_local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl", "new_local_repository")
+conda_repo = use_repo_rule("//:conda_repo.bzl", "conda_repo")
 
-new_local_repository(
-    name = "pixi_repo",
-    build_file = "pixi.BUILD",
+conda_repo(
+    name = "conda_repo",
+    cc_resource_dir = "lib/gcc/x86_64-conda-linux-gnu/15.2.0",
+    cc_sysroot = "x86_64-conda-linux-gnu/sysroot",
     path = ".pixi/envs/default",
 )
 
 register_toolchains(
-    "@pixi_repo//:linux_x86_64_toolchain",
-    "@pixi_repo//:mojo_toolchain",
+    "@conda_repo//:linux_x86_64_toolchain",
+    "@conda_repo//:mojo_toolchain",
 )

@@ -20,10 +20,10 @@ _DEFAULT_SYSROOT_ACTIONS = [
     "@rules_cc//cc/toolchains/actions:link_actions",
 ]
 
-_SYSROOT = "x86_64-conda-linux-gnu/sysroot"
+_SYSROOT = "{TEMPLATE_SYSROOT}"
 
 # Okay! So it works if I use gcc's resource dir.
-_RESOURCE_DIR = "lib/gcc/x86_64-conda-linux-gnu/15.2.0"
+_RESOURCE_DIR = "{TEMPLATE_RESOURCE_DIR}"
 # _RESOURCE_DIR = "lib/clang/22"
 
 directory(
