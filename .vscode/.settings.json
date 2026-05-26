@@ -1,0 +1,9 @@
+{
+    "python.defaultInterpreterPath": "${workspaceFolder}/.pixi/envs/default",
+    "bazel.executable": "${workspaceFolder}/.pixi/envs/default/bin/bazel-real",
+    "bazel.lsp.args": [
+        "--experimental_goto_definition_skip_re_exports",
+        "--experimental_infer_ctx_attributes",
+        "--bazel_path ${workspaceFolder}/.pixi/envs/default/bin/bazel-real"
+    ]
+}
