@@ -1,13 +1,22 @@
-load("@rules_cc//cc:cc_library.bzl", "cc_library")
+load("@gazelle//:def.bzl", "gazelle", "gazelle_binary")
 load("@rules_mojo//mojo:mojo_binary.bzl", "mojo_binary")
 
-cc_library(
-    name = "lib",
-    srcs = ["lib.c"],
+# Define a gazelle binary with a list of enabled extensions
+gazelle_binary(
+    name = "gazelle_cc",
+    languages = [
+        "@gazelle_cc//language/cc",
+    ],
+)
+
+# `gazelle` rule can be used to provide additional arguments, eg. for CI integration
+gazelle(
+    name = "gazelle",
+    gazelle = ":gazelle_cc",
 )
 
 mojo_binary(
     name = "main",
     srcs = ["main.mojo"],
-    deps = [":lib"],
+    deps = ["//c_lib"],
 )

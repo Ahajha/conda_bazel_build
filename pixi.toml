@@ -9,6 +9,7 @@ version = "0.1.0"
 main = "bazel run main"
 build = "bazel build ..."
 format = "mojo format ."
+gazelle = "bazel run gazelle"
 
 [dependencies]
 bazel = "==9.0.0"

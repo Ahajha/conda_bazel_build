@@ -1,5 +1,6 @@
 bazel_dep(name = "rules_cc", version = "0.2.18")
 bazel_dep(name = "bazel_skylib", version = "1.9.0")
+bazel_dep(name = "gazelle", version = "0.46.0")
 bazel_dep(name = "rules_mojo")
 archive_override(
     module_name = "rules_mojo",
@@ -9,6 +10,8 @@ archive_override(
         "https://github.com/modular/rules_mojo/archive/be8b3078e2a4fb36356bc2c29e906b0ca253c0f8.tar.gz",
     ],
 )
+
+bazel_dep(name = "gazelle_cc", version = "0.5.0")
 
 conda_repo = use_repo_rule("//:conda_repo.bzl", "conda_repo")
 
