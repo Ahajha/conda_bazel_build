@@ -113,6 +113,7 @@ cc_args(
     actions = ["@rules_cc//cc/toolchains/actions:link_actions"],
     args = [
         "-fuse-ld=lld",
+        "-lstdc++",
         # Or, I can use clang's resource dir like this
         # "--rtlib=compiler-rt",
     ],
