@@ -113,6 +113,7 @@ cc_args(
     actions = ["@rules_cc//cc/toolchains/actions:link_actions"],
     args = [
         "-fuse-ld=lld",
+        # If a user only requests a C compiler, we could omit this.
         "-lstdc++",
         # Or, I can use clang's resource dir like this
         # "--rtlib=compiler-rt",
@@ -154,15 +155,11 @@ _INTERNAL_LIBRARIES = [
     for library in glob(
         [
             # Globbed to allow .so or .dylib
-            "lib/libAsyncRTMojoBindings.*",
             "lib/libAsyncRTRuntimeGlobals.*",
             "lib/libKGENCompilerRTShared.*",
             "lib/libMSupportGlobals.*",
         ],
         allow_empty = False,
-    ) + glob(
-        ["lib/libNVPTX.so"],  # buildifier: disable=constant-glob
-        allow_empty = True,
     )
 ]
 
